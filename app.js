@@ -75,7 +75,7 @@ app.get('/products/name/:id', function (req, res) {
             if (err) {
                 res.status(500).send(err);
             }
-            else if(!prod) {
+            else if (!prod) {
                 res.status(404).send({});
             }
             else {
@@ -85,19 +85,30 @@ app.get('/products/name/:id', function (req, res) {
     );
 });
 
-app.post('/products', function(req, res) {
+app.post('/products', function (req, res) {
     p = new Product({
         name: req.body.name,
         price: req.body.price,
         department: req.body.department,
     });
     p.save((err, prod) => {
-        if(err){
+        if (err) {
             res.status(500).send(err);
-        }else {
+        } else {
             res.status(200).send(prod);
         }
     })
+});
+
+app.delete('/products/:id', function (req, res) {
+    Product.deleteOne({ _id: req.params.id },
+        (err) => {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.status(200).send({});
+            }
+        })
 });
 
 app.listen(3000);
