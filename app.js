@@ -111,7 +111,7 @@ app.delete('/products/:id', function (req, res) {
         })
 });
 
-app.path('/products/:id', function (req, res) {
+app.patch('/products/:id', function (req, res) {
     Product.findById(req.params.id, (err, prod) => {
         if (err) {
             res.status(500).send(err);
